@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Innovation Hackathon</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+
+    :root {
+        --primary: #2563eb;
+        --secondary: #06b6d4;
+        --accent: #8b5cf6;
+        --dark: #0f172a;
+        --light: #f8fafc;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--dark);
+        color: var(--light);
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    .tech-font {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .hero-container {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    #globe-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 20px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .gradient-text {
+        background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradient-shift 8s ease infinite;
+        background-size: 200% auto;
+    }
+
+    @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .glow-button {
+        position: relative;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        border: none;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+        display: inline-block;
+    }
+
+    .glow-button:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transition: all 0.5s ease;
+        z-index: -1;
+    }
+
+    .glow-button:hover:before {
+        left: 100%;
+    }
+
+    .glow-button:hover {
+        box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+        transform: translateY(-3px);
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 0.5rem;
+        transition: color 0.3s ease;
+        display: inline-block;
+    }
+
+    .nav-link:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover:after {
+        width: 100%;
+    }
+
+    .parallax-section {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .parallax-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg');
+        background-size: cover;
+        background-position: center;
+        transform: translateZ(-1px) scale(2);
+        z-index: -1;
+    }
+
+    .world-map {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background-image: url('world.svg');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: invert(1) hue-rotate(180deg);
+    }
+
+    @media (min-width: 768px) {
+        .world-map {
+            height: 600px;
+        }
+    }
+
+    .location-dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--primary);
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 0 rgba(37, 99, 235, 0.4);
+        animation: pulse 2s infinite;
+        z-index: 5;
+    }
+
+    @media (min-width: 768px) {
+        .location-dot {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+        }
+    }
+
+    .location-info {
+        position: absolute;
+        background: rgba(15, 23, 42, 0.9);
+        color: white;
+        padding: 0.75rem;
+        border-radius: 8px;
+        min-width: 150px;
+        max-width: 250px;
+        transform: translateY(10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 10;
+        font-size: 0.9rem;
+    }
+
+    @media (min-width: 768px) {
+        .location-info {
+            padding: 1rem;
+            min-width: 200px;
+            font-size: 1rem;
+        }
+    }
+
+    .location-dot:hover {
+        background: var(--accent);
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    .location-dot:hover + .location-info {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    @media (hover: none) {
+        .location-dot:active {
+            background: var(--accent);
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        
+        .location-dot:active + .location-info {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+
+    .card {
+        background: rgba(30, 41, 59, 0.8);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.5s ease;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(37, 99, 235, 0.5);
+    }
+
+    .card-icon {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        display: inline-flex;
+        color: white;
+    }
+
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        top: 0;
+        bottom: 0;
+        left: 31px;
+        margin-left: -3px;
+        border-radius: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .timeline::after {
+            left: 50%;
+        }
+    }
+
+    .timeline-item {
+        padding: 10px 40px 10px 70px;
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+        .timeline-item {
+            width: 50%;
+            padding: 10px 40px;
+        }
+        
+        .timeline-item.left {
+            left: 0;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+    }
+
+    .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: var(--accent);
+        border-radius: 50%;
+        top: 15px;
+        left: 19px;
+        z-index: 1;
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+    }
+
+    @media (min-width: 768px) {
+        .timeline-item::after {
+            width: 25px;
+            height: 25px;
+        }
+        
+        .timeline-item.left::after {
+            right: -12px;
+            left: auto;
+        }
+        
+        .timeline-item.right::after {
+            left: -12px;
+        }
+    }
+
+    .timeline-content {
+        padding: 20px;
+        background: rgba(30, 41, 59, 0.8);
+        border-radius: 10px;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (min-width: 768px) {
+        .timeline-content:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .sponsor-logo {
+        filter: grayscale(100%) brightness(1.5);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        max-height: 40px;
+        width: auto;
+        margin: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .sponsor-logo {
+            max-height: 60px;
+            margin: 15px;
+        }
+    }
+
+    .sponsor-logo:hover {
+        filter: grayscale(0%) brightness(1);
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .cursor-glow {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, rgba(37, 99, 235, 0) 70%);
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: screen;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .cursor-glow {
+            width: 80px;
+            height: 80px;
+            display: block;
+        }
+    }
+
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+
+    .preloader.fade-out {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loader {
+        width: 60px;
+        height: 60px;
+        position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .loader {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    .loader:before, .loader:after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        animation: rotate 2s linear infinite;
+    }
+
+    .loader:before {
+        width: 100%;
+        height: 100%;
+        border-top-color: var(--primary);
+        border-bottom-color: var(--secondary);
+        animation-duration: 1s;
+    }
+
+    .loader:after {
+        width: 80%;
+        height: 80%;
+        border-left-color: var(--accent);
+        border-right-color: var(--primary);
+        top: 10%;
+        left: 10%;
+        animation-duration: 1.5s;
+        animation-direction: reverse;
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .mobile-nav {
+            display: none;
+        }
+        
+        .desktop-nav {
+            display: block;
+        }
+    }
+
+    .mobile-menu-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 23, 42, 0.95);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-menu-container.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    .mobile-menu .nav-link {
+        font-size: 1.25rem;
+        margin: 1rem 0;
+        padding: 0.5rem 1rem;
+    }
+
+    .mobile-menu-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1001;
+        background: rgba(15, 23, 42, 0.7);
+        border: none;
+        border-radius: 50%;
+        padding: 0.75rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    @media (min-width: 576px) {
+        .container {
+            max-width: 540px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .container {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 1140px;
+        }
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @media (min-width: 576px) {
+        .col-sm-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        
+        .col-sm-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+        
+        .col-md-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .col-lg-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+        
+        .col-lg-2 {
+            flex: 0 0 16.666667%;
+            max-width: 16.666667%;
+        }
+    }
+
+    .p-0 { padding: 0 !important; }
+    .p-1 { padding: 0.25rem !important; }
+    .p-2 { padding: 0.5rem !important; }
+    .p-3 { padding: 1rem !important; }
+    .p-4 { padding: 1.5rem !important; }
+    .p-5 { padding: 3rem !important; }
+
+    .px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+    .px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+    .px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+
+    .py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+    .py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+    .py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+    .py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+    .m-0 { margin: 0 !important; }
+    .m-1 { margin: 0.25rem !important; }
+    .m-2 { margin: 0.5rem !important; }
+    .m-3 { margin: 1rem !important; }
+    .m-4 { margin: 1.5rem !important; }
+    .m-5 { margin: 3rem !important; }
+
+    .mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+    .mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+    .mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+    .mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+    .mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+    .mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+    .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+    .my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+    .my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+    .my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+    .my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+    .my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+    .text-right { text-align: right !important; }
+
+    @media (min-width: 768px) {
+        .text-md-center { text-align: center !important; }
+        .text-md-left { text-align: left !important; }
+        .text-md-right { text-align: right !important; }
+    }
+
+    /* Display utilities */
+    .d-none { display: none !important; }
+    .d-block { display: block !important; }
+    .d-flex { display: flex !important; }
+    .d-inline-block { display: inline-block !important; }
+
+    @media (min-width: 768px) {
+        .d-md-none { display: none !important; }
+        .d-md-block { display: block !important; }
+        .d-md-flex { display: flex !important; }
+        .d-md-inline-block { display: inline-block !important; }
+    }
+
+    .flex-row { flex-direction: row !important; }
+    .flex-column { flex-direction: column !important; }
+    .justify-content-start { justify-content: flex-start !important; }
+    .justify-content-center { justify-content: center !important; }
+    .justify-content-end { justify-content: flex-end !important; }
+    .justify-content-between { justify-content: space-between !important; }
+    .justify-content-around { justify-content: space-around !important; }
+    .align-items-start { align-items: flex-start !important; }
+    .align-items-center { align-items: center !important; }
+    .align-items-end { align-items: flex-end !important; }
+    .flex-wrap { flex-wrap: wrap !important; }
+    .flex-nowrap { flex-wrap: nowrap !important; }
+
+    section {
+        padding: 3rem 0;
+    }
+
+    @media (min-width: 768px) {
+        section {
+            padding: 5rem 0;
+        }
+    }
+
+    /* Fix for Safari backdrop-filter */
+    @supports not (backdrop-filter: blur(8px)) {
+        .hero-content, .card, .timeline-content {
+            background: rgba(15, 23, 42, 0.9);
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="cursor-glow"></div>
+
+    <nav class="fixed top-0 w-full z-50 bg-opacity-80 bg-gray-900 backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="tech-font text-2xl font-bold gradient-text">Global<span class="text-white">Hack</span></a>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#themes" class="nav-link">Themes</a>
+                    <a href="#schedule" class="nav-link">Schedule</a>
+                    <a href="#locations" class="nav-link">Locations</a>
+                    <a href="#sponsors" class="nav-link">Sponsors</a>
+                </div>
+                
+                <a href="#register" class="glow-button">Register Now</a>
+                
+                <button class="hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-container flex items-center justify-center">
+        <div id="globe-container"></div>
+        <div class="hero-content text-center" data-aos="zoom-in">
+            <h1 class="text-5xl md:text-6xl font-bold tech-font mb-4">
+                <span class="gradient-text">GLOBAL</span> HACKATHON
+            </h1>
+            <p class="text-xl mb-8 opacity-90">Connect, Create, and Change the World</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                <a href="#register" class="glow-button">
+                    Join the Competition
+                </a>
+                <a href="#about" class="bg-transparent border border-white hover:border-blue-400 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-gray-800">
+                    Learn More
+                </a>
+            </div>
+            <div class="mt-12 text-sm opacity-70">
+                <div class="flex items-center justify-center gap-2">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>October 12-14, 2025</span>
+                </div>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Multiple Locations Worldwide + Virtual</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/10 to-purple-900/10 z-0"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up">About the <span class="gradient-text">Hackathon</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 tech-font">Innovate Across Borders</h3>
+                    <p class="text-lg mb-6 text-gray-300">Join developers, designers, and innovators from around the world in this 48-hour challenge to build solutions that address global challenges.</p>
+                    <p class="text-lg mb-8 text-gray-300">Whether you're a coding expert or just starting out, our hackathon provides the perfect platform to showcase your skills, collaborate with like-minded individuals, and make a real impact.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="flex items-center space-x-2">
+                            <div class="text-blue-400 text-xl">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="font-semibold">5000+ Participants</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="text-blue-400 text-xl">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="font-semibold">120+ Countries</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="text-blue-400 text-xl">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="font-semibold">$50k in Prizes</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="text-blue-400 text-xl">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="font-semibold">10 Challenge Tracks</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 md:order-2 relative" data-aos="fade-left">
+                    <div class="floating relative z-10">
+                        <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1">
+                            <div class="bg-gray-900 rounded-2xl p-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="col-span-2">
+                                        <div class="h-40 bg-gray-800 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-code text-5xl text-blue-400"></i>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
+                                        <i class="fas fa-brain text-3xl text-purple-400 mb-2"></i>
+                                        <span class="text-sm tech-font">AI</span>
+                                    </div>
+                                    <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
+                                        <i class="fas fa-link text-3xl text-green-400 mb-2"></i>
+                                        <span class="text-sm tech-font">Blockchain</span>
+                                    </div>
+                                    <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
+                                        <i class="fas fa-mobile-alt text-3xl text-yellow-400 mb-2"></i>
+                                        <span class="text-sm tech-font">Mobile</span>
+                                    </div>
+                                    <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
+                                        <i class="fas fa-cloud text-3xl text-blue-300 mb-2"></i>
+                                        <span class="text-sm tech-font">Cloud</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-500 rounded-full filter blur-[80px] opacity-20"></div>
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-purple-500 rounded-full filter blur-[80px] opacity-20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="themes" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up">Hackathon <span class="gradient-text">Themes</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Choose from one of our challenge tracks and develop innovative solutions for real-world problems
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="150">
+                    <div class="card-icon">
+                        <i class="fas fa-leaf text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">Climate Action</h3>
+                    <p class="text-gray-300 mb-4">Create solutions for climate monitoring, carbon footprint reduction, or sustainable resource management.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+                
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">Health Innovation</h3>
+                    <p class="text-gray-300 mb-4">Develop applications for preventive healthcare, remote diagnostics, or mental health management.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+                
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="250">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">EdTech Revolution</h3>
+                    <p class="text-gray-300 mb-4">Create next-generation learning tools, educational games, or accessibility solutions for education.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+                
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-city text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">Smart Cities</h3>
+                    <p class="text-gray-300 mb-4">Build solutions for urban mobility, energy efficiency, or community engagement in urban environments.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+                
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="350">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">Cybersecurity</h3>
+                    <p class="text-gray-300 mb-4">Develop innovative approaches to data protection, privacy enhancement, or threat detection systems.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+                
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-icon">
+                        <i class="fas fa-robot text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 tech-font">Open Innovation</h3>
+                    <p class="text-gray-300 mb-4">Free-form track for any breakthrough idea that doesn't fit into other categories but shows exceptional promise.</p>
+                    <span class="text-blue-400 flex items-center mt-2">
+                        <span>Learn more</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="py-20 relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-900 to-gray-800 z-0"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up">Event <span class="gradient-text">Schedule</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-bold mb-2 tech-font text-blue-400">Day 1: October 12</h3>
+                        <div class="mt-4 space-y-3">
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">9:00 AM</div>
+                                <div>Registration & Check-in</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">10:00 AM</div>
+                                <div>Opening Ceremony</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">11:30 AM</div>
+                                <div>Team Formation & Networking</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">1:00 PM</div>
+                                <div>Hacking Begins!</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">3:00 PM</div>
+                                <div>Workshop: API Integration</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">7:00 PM</div>
+                                <div>Dinner & Networking</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-bold mb-2 tech-font text-purple-400">Day 2: October 13</h3>
+                        <div class="mt-4 space-y-3">
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">9:00 AM</div>
+                                <div>Breakfast</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">10:00 AM</div>
+                                <div>Workshop: UI/UX Design</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">12:00 PM</div>
+                                <div>Mentorship Sessions</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">2:00 PM</div>
+                                <div>Mid-way Check-in</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">4:00 PM</div>
+                                <div>Workshop: Pitching Skills</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">8:00 PM</div>
+                                <div>Gaming Break</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-bold mb-2 tech-font text-blue-400">Day 3: October 14</h3>
+                        <div class="mt-4 space-y-3">
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">9:00 AM</div>
+                                <div>Final Breakfast</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">11:00 AM</div>
+                                <div>Submission Deadline</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">12:00 PM</div>
+                                <div>Lunch Break</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">1:00 PM</div>
+                                <div>Project Presentations</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">4:00 PM</div>
+                                <div>Judging & Deliberation</div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-24 font-bold text-gray-400">6:00 PM</div>
+                                <div>Awards Ceremony</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="locations" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up"><span class="gradient-text">Global</span> Locations</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Join us at one of our physical locations around the world or participate virtually from anywhere
+                </p>
+            </div>
+            
+            <div class="world-map relative" data-aos="zoom-in">
+
+                <div class="location-dot" style="top: 50%; left: 25%;" data-city="San Francisco"></div>
+                <div class="location-info" style="top: calc(38% - 80px); left: 19%;">
+                    <h4 class="font-bold">San Francisco</h4>
+                    <p>Tech Innovation Hub</p>
+                    <p class="text-xs mt-2 text-blue-300">500+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 52%; left: 32%;" data-city="New York"></div>
+                <div class="location-info" style="top: calc(35% - 80px); left: 25%;">
+                    <h4 class="font-bold">New York</h4>
+                    <p>Financial District</p>
+                    <p class="text-xs mt-2 text-blue-300">450+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 40%; left: 46%;" data-city="London"></div>
+                <div class="location-info" style="top: calc(30% - 80px); left: 46%;">
+                    <h4 class="font-bold">London</h4>
+                    <p>European Innovation Center</p>
+                    <p class="text-xs mt-2 text-blue-300">400+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 45%; left: 50%;" data-city="Berlin"></div>
+                <div class="location-info" style="top: calc(30% - 80px); left: 50%;">
+                    <h4 class="font-bold">Berlin</h4>
+                    <p>Startup Capital</p>
+                    <p class="text-xs mt-2 text-blue-300">350+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 55%; left: 70%;" data-city="Singapore"></div>
+                <div class="location-info" style="top: calc(55% - 80px); left: 75%;">
+                    <h4 class="font-bold">Singapore</h4>
+                    <p>Tech Gateway</p>
+                    <p class="text-xs mt-2 text-blue-300">300+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 60%; left: 65%;" data-city="Bangalore"></div>
+                <div class="location-info" style="top: calc(50% - 80px); left: 68%;">
+                    <h4 class="font-bold">Bangalore</h4>
+                    <p>India's Silicon Valley</p>
+                    <p class="text-xs mt-2 text-blue-300">600+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 83%; left: 79%;" data-city="Sydney"></div>
+                <div class="location-info" style="top: calc(70% - 80px); left: 85%;">
+                    <h4 class="font-bold">Sydney</h4>
+                    <p>Pacific Innovation Hub</p>
+                    <p class="text-xs mt-2 text-blue-300">250+ Participants</p>
+                </div>
+                
+                <div class="location-dot" style="top: 70%; left: 33%;" data-city="São Paulo"></div>
+                <div class="location-info" style="top: calc(65% - 80px); left: 33%;">
+                    <h4 class="font-bold">São Paulo</h4>
+                    <p>Latin American Tech Center</p>
+                    <p class="text-xs mt-2 text-blue-300">350+ Participants</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-gray-800 p-8 rounded-xl" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-6 tech-font text-center">Virtual Participation</h3>
+                <p class="text-lg text-center mb-8">Can't make it to a physical location? Join us virtually from anywhere in the world!</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <div class="text-blue-400 text-3xl mb-4 flex justify-center">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4 class="font-bold text-center mb-2">Live Streaming</h4>
+                        <p class="text-center text-gray-300 text-sm">Access all workshops, keynotes, and presentations in real-time</p>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <div class="text-purple-400 text-3xl mb-4 flex justify-center">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4 class="font-bold text-center mb-2">Virtual Collaboration</h4>
+                        <p class="text-center text-gray-300 text-sm">Team up with participants from around the globe using our collaboration platform</p>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <div class="text-green-400 text-3xl mb-4 flex justify-center">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4 class="font-bold text-center mb-2">Equal Prizes</h4>
+                        <p class="text-center text-gray-300 text-sm">Virtual participants are eligible for the same prizes and opportunities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsors" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up">Our <span class="gradient-text">Sponsors</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Supported by industry leaders committed to fostering innovation and technological advancement
+                </p>
+            </div>
+            
+            <div class="mb-16" data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-8 text-center">Platinum Sponsors</h3>
+                <div class="flex flex-wrap justify-center items-center gap-10">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" class="sponsor-logo">
+                    <svg width="64px" height="64px" viewBox="0 -30 150 150" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M122.714 62.703c5.28-.643 16.924-2.027 18.997.643 2.072 2.621-2.319 13.649-4.293 18.544-.592 1.484.691 2.077 2.023.94 8.684-7.319 10.954-22.6 9.178-24.825-1.777-2.175-17.023-4.055-26.3 2.473-1.431 1.038-1.184 2.423.395 2.225z" fill="#F90"></path> <path d="M74.852 89.456c20.28 0 43.865-6.38 60.099-18.396 2.664-1.978.345-4.994-2.369-3.758-18.207 7.714-37.993 11.473-56.003 11.473-26.694 0-52.5-7.368-73.42-19.533-1.827-1.088-3.208.791-1.679 2.176 19.343 17.505 44.951 28.038 73.372 28.038z" fill="#F90"></path> <path d="M42.632 32.835c0 1.83.197 3.313.542 4.401a26.505 26.505 0 001.58 3.56c.246.396.345.792.345 1.138 0 .495-.296.99-.938 1.484l-3.108 2.077c-.444.296-.889.445-1.283.445-.494 0-.987-.248-1.48-.693a15.29 15.29 0 01-1.777-2.324 38.28 38.28 0 01-1.53-2.918c-3.848 4.55-8.684 6.825-14.506 6.825-4.145 0-7.45-1.187-9.868-3.56-2.418-2.374-3.652-5.54-3.652-9.495 0-4.204 1.48-7.616 4.49-10.187 3.01-2.572 7.007-3.857 12.09-3.857 1.677 0 3.404.148 5.23.395 1.825.248 3.7.643 5.674 1.088v-3.61c0-3.758-.79-6.379-2.32-7.912-1.578-1.533-4.243-2.274-8.042-2.274-1.727 0-3.503.197-5.329.642a39.247 39.247 0 00-5.329 1.682 14.14 14.14 0 01-1.727.643c-.345.098-.592.148-.79.148-.69 0-1.036-.494-1.036-1.533V6.577c0-.791.1-1.385.346-1.73.246-.347.69-.693 1.381-1.04 1.727-.89 3.8-1.631 6.217-2.225C20.23.94 22.797.642 25.51.642c5.872 0 10.164 1.336 12.927 4.006 2.714 2.67 4.096 6.726 4.096 12.165v16.022h.099zm-20.033 7.517c1.628 0 3.306-.297 5.082-.89 1.776-.594 3.355-1.682 4.687-3.165.79-.94 1.382-1.978 1.678-3.165.296-1.187.493-2.621.493-4.302v-2.077a41.135 41.135 0 00-4.539-.84 37.099 37.099 0 00-4.638-.298c-3.306 0-5.724.643-7.352 1.978-1.628 1.336-2.418 3.215-2.418 5.687 0 2.324.592 4.055 1.826 5.242 1.184 1.236 2.911 1.83 5.18 1.83zm39.621 5.34c-.888 0-1.48-.148-1.875-.494-.394-.297-.74-.99-1.036-1.929L47.714 5.044c-.296-.99-.444-1.632-.444-1.978 0-.791.394-1.236 1.184-1.236h4.835c.938 0 1.58.148 1.925.494.395.297.69.99.987 1.929l8.29 32.736 7.697-32.736c.246-.99.542-1.632.937-1.929.395-.297 1.085-.494 1.974-.494h3.947c.938 0 1.579.148 1.974.494.395.297.74.99.937 1.929l7.796 33.132L98.29 4.253c.295-.99.64-1.632.986-1.929.395-.297 1.036-.494 1.925-.494h4.588c.79 0 1.234.395 1.234 1.236 0 .247-.049.494-.099.791a7.041 7.041 0 01-.345 1.236L94.688 43.32c-.297.989-.642 1.631-1.037 1.928-.394.297-1.036.495-1.875.495h-4.243c-.938 0-1.58-.149-1.974-.495-.394-.346-.74-.989-.937-1.978l-7.648-31.895-7.599 31.846c-.247.989-.543 1.632-.938 1.978-.394.346-1.085.494-1.973.494H62.22zm63.405 1.336c-2.566 0-5.132-.297-7.599-.89-2.467-.594-4.391-1.237-5.674-1.979-.79-.445-1.332-.94-1.53-1.384a3.503 3.503 0 01-.296-1.385v-2.522c0-1.038.395-1.533 1.135-1.533.296 0 .592.05.888.148.296.1.74.297 1.234.495a26.791 26.791 0 005.428 1.73c1.973.396 3.898.594 5.871.594 3.109 0 5.527-.544 7.204-1.632 1.678-1.088 2.566-2.67 2.566-4.698 0-1.384-.444-2.521-1.332-3.461-.888-.94-2.566-1.78-4.984-2.571l-7.154-2.226c-3.602-1.137-6.267-2.818-7.895-5.044-1.628-2.176-2.467-4.599-2.467-7.17 0-2.077.444-3.907 1.332-5.489.888-1.582 2.072-2.967 3.553-4.055 1.48-1.137 3.157-1.978 5.131-2.571 1.974-.594 4.046-.841 6.217-.841 1.086 0 2.221.05 3.306.198 1.135.148 2.171.346 3.207.544.987.247 1.925.494 2.813.79.888.298 1.579.594 2.072.891.691.396 1.185.791 1.481 1.236.296.396.444.94.444 1.632V8.16c0 1.039-.395 1.583-1.135 1.583-.395 0-1.036-.198-1.875-.594-2.813-1.285-5.971-1.928-9.474-1.928-2.812 0-5.033.445-6.562 1.384-1.53.94-2.319 2.374-2.319 4.402 0 1.384.493 2.57 1.48 3.51s2.812 1.88 5.427 2.72l7.007 2.226c3.553 1.137 6.118 2.72 7.648 4.747 1.53 2.027 2.27 4.351 2.27 6.923 0 2.126-.444 4.055-1.283 5.736-.888 1.681-2.072 3.165-3.602 4.352-1.53 1.236-3.355 2.126-5.477 2.769-2.22.692-4.54 1.039-7.056 1.039z" fill="#f4f4f4"></path> </g></svg>
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 4H11.5V11.5H4V4ZM12.5 4H20V11.5H12.5V4ZM4 12.5H11.5V20H4V12.5ZM12.5 12.5H20V20H12.5V12.5Z" fill="#000000"></path> </g></svg>
+                </div>
+            </div>
+            
+            <div class="mb-16" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-8 text-center">Gold Sponsors</h3>
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg" alt="Salesforce" class="sponsor-logo">
+                </div>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-bold mb-8 text-center">Silver Sponsors</h3>
+                <div class="flex flex-wrap justify-center items-center gap-6">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg" alt="DigitalOcean" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="sponsor-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" class="sponsor-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="py-20 relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-800 to-gray-900 z-0"></div>
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-20 -left-20 animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl bottom-20 -right-20 animate-pulse" style="animation-delay: 2s"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 tech-font" data-aos="fade-up">Register <span class="gradient-text">Now</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Secure your spot at the biggest global hackathon event. Limited spaces available!
+                </p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto bg-gray-800/80 backdrop-blur-lg rounded-2xl p-8 border border-gray-700" data-aos="zoom-in">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="space-y-2">
+                            <label for="firstName" class="block text-sm font-medium">First Name</label>
+                            <input type="text" id="firstName" class="bg-gray-700 w-full rounded-lg border-gray-600 p-3 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="lastName" class="block text-sm font-medium">Last Name</label>
+                            <input type="text" id="lastName" class="bg-gray-700 w-full rounded-lg border-gray-600 p-3 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="block text-sm font-medium">Email</label>
+                            <input type="email" id="email" class="bg-gray-700 w-full rounded-lg border-gray-600 p-3 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="location" class="block text-sm font-medium">Preferred Location</label>
+                            <select id="location" class="bg-gray-700 w-full rounded-lg border-gray-600 p-3 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="virtual">Virtual (Remote)</option>
+                                <option value="sf">San Francisco</option>
+                                <option value="ny">New York</option>
+                                <option value="london">London</option>
+                                <option value="berlin">Berlin</option>
+                                <option value="singapore">Singapore</option>
+                                <option value="bangalore">Bangalore</option>
+                                <option value="sydney">Sydney</option>
+                                <option value="saopaulo">São Paulo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2 mb-6">
+                        <label for="experience" class="block text-sm font-medium">Experience Level</label>
+                        <select id="experience" class="bg-gray-700 w-full rounded-lg border-gray-600 p-3 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="beginner">Beginner (0-1 years)</option>
+                            <option value="intermediate">Intermediate (1-3 years)</option>
+                            <option value="advanced">Advanced (3-5 years)</option>
+                            <option value="expert">Expert (5+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="space-y-2 mb-6">
+                        <label class="block text-sm font-medium">Preferred Track (Select up to 2)</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="climate" class="mr-2">
+                                <label for="climate">Climate Action</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="health" class="mr-2">
+                                <label for="health">Health Innovation</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="edtech" class="mr-2">
+                                <label for="edtech">EdTech Revolution</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="cities" class="mr-2">
+                                <label for="cities">Smart Cities</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="security" class="mr-2">
+                                <label for="security">Cybersecurity</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="open" class="mr-2">
+                                <label for="open">Open Innovation</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-8">
+                        <button type="submit" class="glow-button px-8 py-4 text-lg">
+                            Register for the Hackathon
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-8 text-center text-sm text-gray-400">
+                    Registration closes October 1st, 2025. Accepted participants will be notified within 48 hours.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="tech-font text-2xl font-bold gradient-text mb-4">Global<span class="text-white">Hack</span></h3>
+                    <p class="text-gray-400 mb-4">Connecting innovators across borders to solve global challenges through technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#themes" class="text-gray-400 hover:text-white transition-colors">Themes</a></li>
+                        <li><a href="#schedule" class="text-gray-400 hover:text-white transition-colors">Schedule</a></li>
+                        <li><a href="#locations" class="text-gray-400 hover:text-white transition-colors">Locations</a></li>
+                        <li><a href="#sponsors" class="text-gray-400 hover:text-white transition-colors">Sponsors</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Rules & Guidelines</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Code of Conduct</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-2 text-blue-400"></i>
+                            <a href="mailto:info@globalhack.io" class="hover:text-white transition-colors">info@globalhack.io</a>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-phone mr-2 text-blue-400"></i>
+                            <a href="tel:+1-555-123-4567" class="hover:text-white transition-colors">+1-555-123-4567</a>
+                        </li>
+                        <li class="flex items-start text-gray-400 mt-2">
+                            <i class="fas fa-map-marker-alt mr-2 text-blue-400 mt-1"></i>
+                            <span>Global Hackathon HQ<br>123 Innovation Street<br>San Francisco, CA 94103</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Global Hackathon. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true
+            });
+            
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('fade-out');
+            }, 1500);
+            
+            initGlobe();
+            
+            initCursor();
+            
+            initInteractiveElements();
+        });
+        
+        function initGlobe() {
+            const scene = new THREE.Scene();
+            
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 200;
+            
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            const container = document.getElementById('globe-container');
+            container.appendChild(renderer.domElement);
+            
+            const sphereGeometry = new THREE.SphereGeometry(80, 64, 64);
+            
+            const sphereMaterial = new THREE.MeshBasicMaterial({
+                color: 0x2563eb,
+                opacity: 0.2,
+                wireframe: true
+            });
+            
+            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            scene.add(sphere);
+            
+            const glowGeometry = new THREE.SphereGeometry(82, 64, 64);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x06b6d4,
+                transparent: true,
+                opacity: 0.1
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            scene.add(glow);
+            
+            const pointsGeometry = new THREE.BufferGeometry();
+            const pointsCount = 300;
+            const positions = new Float32Array(pointsCount * 3);
+            
+            for (let i = 0; i < pointsCount; i++) {
+                const i3 = i * 3;
+                const phi = Math.acos(Math.random() * 2 - 1);
+                const theta = Math.random() * Math.PI * 2;
+                const radius = 80;
+                
+                positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i3 + 2] = radius * Math.cos(phi);
+            }
+            
+            pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const pointsMaterial = new THREE.PointsMaterial({
+                color: 0x8b5cf6,
+                size: 1.5,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const points = new THREE.Points(pointsGeometry, pointsMaterial);
+            scene.add(points);
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                sphere.rotation.y += 0.002;
+                points.rotation.y += 0.002;
+                glow.rotation.y += 0.002;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+        }
+        
+        function initCursor() {
+            const cursor = document.querySelector('.cursor-glow');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.display = 'block';
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            
+            document.addEventListener('mouseout', () => {
+                cursor.style.display = 'none';
+            });
+        }
+        
+        function initInteractiveElements() {
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const parallaxElements = document.querySelectorAll('.parallax-bg');
+                
+                parallaxElements.forEach(element => {
+                    const speed = 0.5;
+                    element.style.transform = `translateY(${scrollY * speed}px)`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
